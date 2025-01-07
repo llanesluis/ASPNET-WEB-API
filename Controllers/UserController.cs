@@ -1,5 +1,7 @@
-﻿using ASPNET_WebAPI.Models;
-using ASPNET_WebAPI.Services;
+﻿using ASPNET_WebAPI.DTOs;
+using ASPNET_WebAPI.Models;
+using ASPNET_WebAPI.Services.UserService;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_WebAPI.Controllers
@@ -19,6 +21,7 @@ namespace ASPNET_WebAPI.Controllers
             _userService = userService;
         }
 
+        // TODO: UPDATE THIS AND THE NUMERIC ORDER OF STEPS
         // 10.3 - Create the endpoints 
         // BEST PRACTICES:
         //      - Use the async/await pattern to avoid blocking the thread
@@ -32,16 +35,17 @@ namespace ASPNET_WebAPI.Controllers
         //      - DELETE methods should return NoContent() or NotFound()
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async void GetAll()
         {
-            var users = await _userService.GetAll();
-            return Ok(users);
+            throw new NotImplementedException();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetById(int id)
         {
-            var user = await _userService.GetById(id);
+            throw new NotImplementedException();
+
+            var user = await _userService.GetByIdAsync(id);
 
             if (user is null)
                 return NotFound();
@@ -50,29 +54,33 @@ namespace ASPNET_WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(User user)
+        public async Task<IActionResult> Create(CreateUserDTO user)
         {
             // implicitly returns BadRequest() if the Body of the request is not valid
 
-            var createdUser = await _userService.Create(user);
+            throw new NotImplementedException();
+
+            var createdUser = await _userService.CreateAsync(user);
             return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, User user)
+        public async Task<IActionResult> Update(int id, UpdateUserDTO user)
         {
             // implicitly returns BadRequest() if the Body of the request is not valid
+
+            throw new NotImplementedException();
 
             if (id != user.Id)
                 return BadRequest();
 
             // Not sure if this check should be here, or in the service
-            var existingUser = await _userService.GetById(id);
+            var existingUser = await _userService.GetByIdAsync(id);
             
             if (existingUser is null)
                 return NotFound();
 
-            _userService.Update(id, user);
+            await _userService.UpdateAsync(id, user);
 
             return NoContent();
         }
@@ -80,13 +88,15 @@ namespace ASPNET_WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            throw new NotImplementedException();
+
             // Not sure if this check should be here, or in the service
-            var existingUser = await _userService.GetById(id);
+            var existingUser = await _userService.GetByIdAsync(id);
 
             if (existingUser is null)
                 return NotFound();
 
-            _userService.Delete(id);
+            await _userService.DeleteAsync(id);
 
             return NoContent();
         }

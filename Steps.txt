@@ -1,3 +1,5 @@
+// TODO: Rewrite the order of the steps now including the DTOs and Repositories
+
 // 1 - Create a Model => root / Models / Model.cs
 
 // 2 - Create a DbContext => root / Data / AppDbContext.cs

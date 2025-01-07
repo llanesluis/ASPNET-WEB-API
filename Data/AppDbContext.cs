@@ -3,15 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASPNET_WebAPI.Data
 {
-    // If we create an interface, we force the implementation of the tables in the DbContext
-    public interface IAppDbContext
-    {
-        // Add the database sets here (DbSet<T>)
-        public DbSet<User> Users { get; set; }
-    }
-
     // 2 - Create a DbContext => root / Data / AppDbContext.cs
-    public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IAppDbContext
+    public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
         // 3 - Add the database sets here (DbSet<T>)
         public DbSet<User> Users { get; set; }

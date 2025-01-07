@@ -4,7 +4,7 @@ using ASPNET_WebAPI.Models;
 namespace ASPNET_WebAPI.Services
 {
     // Implement an interface to force the implementation of the methods
-    public interface IUserService
+    public interface IUserServicePrevious
     {
         public Task<IEnumerable<User>> GetAll();
         public Task<User> GetById(int id);
@@ -15,13 +15,13 @@ namespace ASPNET_WebAPI.Services
 
     // 8 - Create a service => root / Services / UserService.cs
     // this service will be injected into the controller
-    public class UserService : IUserService
+    public class UserServicePrevious : IUserServicePrevious
     {
         // 8.1 - Create a private readonly field for the DbContext to be injected
         private readonly AppDbContext _context;
 
         // 8.2 - Inject the DbContext via the constructor
-        public UserService(AppDbContext context)
+        public UserServicePrevious(AppDbContext context)
         {
             _context = context;
         }
